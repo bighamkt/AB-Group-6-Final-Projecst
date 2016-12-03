@@ -1,4 +1,5 @@
 source("./scripts/director.R")
+source("./scripts/trends.R")
 server <- function(input, output) {
    
    
@@ -13,4 +14,9 @@ server <- function(input, output) {
    output$top_director_table_created <- renderTable(return(BuildDirectorTable("numOfMovies")))
    output$top_director_table_score <- renderTable(return(BuildDirectorTable("score")))
    output$director_search_results <- renderTable(return(BuildDirectorSearchTable(director())))
+   
+   # Trends Tabs
+   
+   # Revenue
+   # output$revenue_score_plot <- renderPlotly(return(BuildRevenueScoreComparisonPlot()))
 }

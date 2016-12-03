@@ -16,6 +16,7 @@ $(document).keyup(function(event) {
 #END OF DIRECTOR TAB
 
 shinyUI(navbarPage(title = "IMDB Dataset",
+   theme = "boostrap.css",
    tabPanel("Home"
       
    
@@ -90,8 +91,10 @@ shinyUI(navbarPage(title = "IMDB Dataset",
    #    tabPanel("Content Ratings"
    # 
    #    ),
-   #    tabPanel("Revenue"
-   # 
+   #    tabPanel("Revenue",
+   #       h1("The Revenue Fallacy"),
+   #       plotlyOutput("revenue_score_plot"),
+   #       p("INSERT")
    #    ),
    #    tabPanel("Origin"
    # 

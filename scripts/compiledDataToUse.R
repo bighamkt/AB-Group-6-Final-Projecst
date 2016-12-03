@@ -2,7 +2,6 @@ library(dplyr)
 library(plotly)
 movie_data <- read.csv("data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 ######################## TODOS?? ############################
-#imdb ratings for movies by <insert director here> over time, 
 #top movie by <insert actor here in search box>
 #############################################################
 
@@ -15,11 +14,6 @@ movies_origin <- movie_data %>% group_by(country) %>% summarise(num_of_movies = 
 # Num of movies filmed in each respective year sorted in descending order by num of movies
 movies_year <- movie_data %>% group_by(title_year) %>% summarise(num_of_movies = n()) %>% filter(title_year != "") %>% arrange(-num_of_movies)
 
-# List of directors sorted by their total revenue across all movies
-director_score <- na.omit(movie_data) %>% select(director_name, gross) %>% group_by(director_name) %>% summarise(total_revenue = sum(as.numeric(gross))) %>% arrange(-total_revenue)
-
-# Top 10 list of directors based on total movie revenue, top 10 highest grossing films, and top 10 longest movies in dataset
-top_10_director <- head(director_score, 10)
 top_10_revenue <- movie_data %>% arrange(-gross) %>% head(10) %>% select(movie_title, gross)
 top_10_duration <- movie_data %>% arrange(-duration) %>% head(10) %>% select(movie_title, duration)
 

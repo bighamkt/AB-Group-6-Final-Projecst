@@ -16,6 +16,11 @@ $(document).keyup(function(event) {
 #END OF DIRECTOR TAB
 
 shinyUI(navbarPage(title = "IMDB Dataset",
+   tabPanel("Home"
+      
+   
+      
+   ),
    tabPanel("Ratings"
       
        
@@ -30,6 +35,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
       fluidPage(
          tags$script(HTML(jscode)),
          # Director Quick Fact Tables
+         h1("Summary"),
          fluidRow(
             column(4,
                h4("Most Successful Directors By Movie Revenue", style = "text-align:left"),
@@ -49,8 +55,8 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          # Director IMDB Movie Score Search
          fluidRow(
             column(4,
+               h2("Director Movie Search", style = "text-align:left"),
                wellPanel(
-                  h3("Director Movie Search", style = "text-align:left"),
                   textInput("search", placeholder = "Steven Spielberg", value = "Steven Spielberg", label = "Search for a director"),
                   actionButton("submit_search", "Search"),
                   tags$style(HTML('#submit_search{background-color:#3B5998; color:#ffffff}')),
@@ -74,29 +80,24 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          # END OF DIRECTOR SEARCH
       )
    )
-   
-   
-   
-   
-   
    # navbarMenu(title = "Trends",
    #    tabPanel("Duration"
-   #    
+   # 
    #    ),
    #    tabPanel("Movie Output"
-   #             
+   # 
    #    ),
    #    tabPanel("Content Ratings"
-   #             
+   # 
    #    ),
    #    tabPanel("Revenue"
-   #             
+   # 
    #    ),
    #    tabPanel("Origin"
-   #             
+   # 
    #    ),
    #    tabPanel("Language"
-   #             
+   # 
    #    )
    #    # Maybe language and origin can be shown
    #    # an overall and overall graph

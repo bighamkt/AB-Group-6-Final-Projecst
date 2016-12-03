@@ -48,21 +48,26 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          HTML("<hr style='border-bottom: 2px solid gray'>"),
          # Director IMDB Movie Score Search
          fluidRow(
-            column(3,
-               h3("Director Movie Search", style = "text-align:left"),
-               textInput("search", placeholder = "Steven Spielberg", value = "Steven Spielberg", label = "Search for a director"),
-               actionButton("submit_search", "Search"),
-               HTML('
-                  <h5>Examples</h5>
-                  <div style="color:gray">
-                     <p>George Lucas</p>
-                     <p>Quentin Tarantino</p>
-                     <p>James Cameron</p>
-                     <p>Tim Burton</p>
-                  </div>
-               ')
+            column(4,
+               wellPanel(
+                  h3("Director Movie Search", style = "text-align:left"),
+                  textInput("search", placeholder = "Steven Spielberg", value = "Steven Spielberg", label = "Search for a director"),
+                  actionButton("submit_search", "Search"),
+                  tags$style(HTML('#submit_search{background-color:#3B5998; color:#ffffff}')),
+                  HTML('
+                     <br />
+                     <br />
+                     <h5>Examples</h5>
+                     <div style="color:gray">
+                        <p>George Lucas</p>
+                        <p>Quentin Tarantino</p>
+                        <p>James Cameron</p>
+                        <p>Tim Burton</p>
+                     </div>
+                  ')
+               )
             ),
-            column(9,
+            column(8,
                tableOutput("director_search_results")
             )
          )

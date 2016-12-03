@@ -27,4 +27,3 @@ BuildDirectorSearchTable <- function(name = "Steven Spielberg") {
    colnames(formatted_data) <- c("Title", "Year", "IMDB Score", "Rating", "Duration (m)", "Revenue (millions)", "Cost (millions)")
    return(formatted_data)
 }
-

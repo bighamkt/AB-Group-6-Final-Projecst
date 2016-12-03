@@ -3,22 +3,19 @@
 
 #DIRECTOR TAB
 #devtools::install_github("AnalytixWare/ShinySky")
-require(shinysky)
 movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 director_names <- select(movie_data, director_name)
 director_names <- director_names[!duplicated(director_names[, 1]),]
 jscode <- "
-$(function(){ 
-   $(document).keyup(function(e) {
-      if(e.keyCode == 13) {
-         $('#submit_search').click();
-      }
-   });
-})
+$(document).keyup(function(event) {
+   if ($('#search').is(':focus') && (event.keyCode == 13)) {
+      $('#submit_search').click();
+   }
+});
 "
 #END OF DIRECTOR TAB
 
-shinyUI(navbarPage(title = "IMDB Datset",
+shinyUI(navbarPage(title = "IMDB Dataset",
    tabPanel("Ratings"
       
        
@@ -48,20 +45,12 @@ shinyUI(navbarPage(title = "IMDB Datset",
             )
          ),
          # END OF TABLES
-         HTML("<hr>"),
+         HTML("<hr style='border-bottom: 2px solid gray'>"),
          # Director IMDB Movie Score Search
          fluidRow(
-            column(4,
+            column(3,
                h3("Director Movie Search", style = "text-align:left"),
-               textInput.typeahead(id="search",
-                  placeholder="Steven Spielberg",
-                  local=data.frame(name=c(director_names)),
-                  valueKey = "name",
-                  tokens=c(1:length(director_names)),
-                  template = HTML("<p class='repo-language'>{{info}}</p> <p class='repo-name'>{{name}}</p>")
-               ),
-               br(),
-               br(),
+               textInput("search", placeholder = "Steven Spielberg", value = "Steven Spielberg", label = "Search for a director"),
                actionButton("submit_search", "Search"),
                HTML('
                   <h5>Examples</h5>
@@ -73,15 +62,12 @@ shinyUI(navbarPage(title = "IMDB Datset",
                   </div>
                ')
             ),
-            column(8,
+            column(9,
                tableOutput("director_search_results")
             )
-         ),
-         fluidRow(
-            
          )
+         # END OF DIRECTOR SEARCH
       )
-      
    )
    
    

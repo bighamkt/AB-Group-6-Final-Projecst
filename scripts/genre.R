@@ -2,30 +2,30 @@
 movie_data<- read.csv("C:/Users/Katie/Desktop/AB-Group-6-Final-Project/data/movie_metadata_original.csv", header=FALSE)
 library(dplyr)
 library(plotly)
+library(qdap)
 
 #Select Top Ten of Genre of Choice
 SearchGenre<- function(Genre){
-  #Search for the Genre
-  hasGen <-  sapply( movie_data, grepl, patt=Genre, ignore.case=FALSE)
-  #Sort and refine the data table, the columns selected here will be used in later graphics
-  searched.genre.table<- movie_data[ rowSums(hasGen) > 0 , ] %>%
+  #Search for desired genre
+  searched.genre.table<- filter(movie_data, grepl(Genre, V10)) %>%
+  #Sort and refine the data table, the columns selected here will be used in later graphics  
     select(V2, V4, V7, V9, V10, V11, V12, V15, V21, V22, V23, V24, V26, V28) %>%
   #Sort the data by IMDB rating
     arrange(desc(V26)) %>%
   #Cut table to down to top ten
-    slice(1:10)
+    top_n(10, V26)
   #Reorder the dataframe's columns
   searched.genre.table<- searched.genre.table[c("V12", "V24", "V2", "V11", "V7", "V15", "V10", "V22", "V4", "V21", "V23", "V9", "V26", "V28" )]
   #Add desired column names
   colnames(searched.genre.table)<- c("Title", "Title_Year", "Director_Name", "First_Actor_Name", "Second_Actor_Name", "Third_Actor_Name", "Genres", "Content_Rating", "Duration", "Country_of_Origin", "Budget", "Gross_Income", "IMDB_Rating", "Facebook_Likes")
-  View<- View(searched.genre.table)
-  return(View)
+  return(searched.genre.table)
 }
 
+searched.genre.table<-SearchGenre("Romance")
 
 #Bar Chart of Budget and Gross Income
   #Displays each title's budget in a bar graph
-  budget.graph<- plot_ly(searched.genre.table, 
+  budget.graph<- plot_ly(table, 
                        x = ~Title, y = ~Budget,
                        type = 'bar',
                        name = 'Movie or Television Budget') 
@@ -52,7 +52,7 @@ SearchGenre<- function(Genre){
   
 #Bar Chart for Duration
   duration.graph<- plot_ly(searched.genre.table, 
-                           x = ~Title, y = ~Duration,
+                           x = ~searched.genre.table$Title, y = ~searched.genre.table$Duration,
                            type = 'bar',
                            name = 'Movie or Television Length')
 
@@ -69,3 +69,7 @@ SearchGenre<- function(Genre){
   country.table<- select(searched.genre.table, Title, Country_of_Origin) %>%
     group_by(Country_of_Origin) %>%
     summarise(n = n())
+  country.graph<- plot_ly(country.table,
+                    labels = ~Country_of_Origin,
+                    values = ~n, type = 'pie') %>%
+                  layout(title = 'Movie or Television Country of Origin')

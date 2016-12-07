@@ -1,4 +1,4 @@
-library(ggplot2)
+library(plotly)
 library(dplyr)
 movie_data <- read.csv("data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 
@@ -18,8 +18,35 @@ movie_overall_content_rating <- movie_data %>% group_by(content_rating) %>% summ
 
 
 BuildRevenueScoreComparisonPlot <- function() {
+   movie_data <- read.csv("data/movie_metadata_original.csv", stringsAsFactors = FALSE)
+   movie_imdb_score_year <- na.omit(movie_data) %>% filter(title_year < 2013 & title_year > 1950) %>% group_by(title_year) %>% summarise(avg_score = round(mean(imdb_score), 1)) %>% filter(title_year != "") %>% arrange(-as.numeric(title_year))
+   movie_revenue_year <- na.omit(movie_data) %>% filter(title_year < 2013 & title_year > 1950) %>% group_by(title_year) %>% summarise(revenue = sum(as.numeric(gross))) %>% arrange(-as.numeric(title_year))
+   
    plot_data <- data.frame(movie_imdb_score_year$title_year, movie_imdb_score_year$avg_score, movie_revenue_year$revenue)
    revenue_imdb_score <- plot_ly(plot_data, x = plot_data$movie_imdb_score_year.title_year, y = plot_data$movie_imdb_score_year.avg_score, name = "IMDB Average Score", type = "scatter", mode = "lines") %>%
       add_trace(y = plot_data$movie_revenue_year.revenue / 1000000000, name = "Total Revenue (Billions)", mode = "lines")
    return(revenue_imdb_score)
+}
+
+# Cloropleth map that shows movies country of origin that takes a slider input that select min and max year ranges
+BuildWorldMovieOriginMap <- function() {
+   movie_data <- read.csv("data/movie_metadata_original.csv", stringsAsFactors = FALSE)
+   l <- list(color = toRGB("grey"), width = 0.5)
+   
+   # specify map projection/options
+   g <- list(
+      showframe = FALSE,
+      showcoastlines = FALSE,
+      projection = list(type = 'Mercator')
+   )
+   
+   p <- plot_geo(movie_data) %>%
+      add_trace(
+         z = ~country, color = ~country, colors = 'Blues',
+         text = ~country, locations = ~country, marker = list(line = l)
+      ) %>%
+      layout(
+         title = '2014 Global GDP<br>Source:<a href="https://www.cia.gov/library/publications/the-world-factbook/fields/2195.html">CIA World Factbook</a>',
+         geo = g
+      )
 }

@@ -58,7 +58,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
             column(4,
                h2("Director Movie Search", style = "text-align:left"),
                wellPanel(
-                  textInput("search", placeholder = "Steven Spielberg", value = "Steven Spielberg", label = "Search for a director"),
+                  textInput("search", placeholder = "Search...", value = "Steven Spielberg", label = "Search for a director"),
                   actionButton("submit_search", "Search"),
                   tags$style(HTML('#submit_search{background-color:#3B5998; color:#ffffff}')),
                   HTML('
@@ -80,29 +80,32 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          )
          # END OF DIRECTOR SEARCH
       )
+   ),
+   navbarMenu(title = "Trends",
+      tabPanel("Duration"
+        
+      ),
+      tabPanel("Movie Output"
+
+      ),
+      tabPanel("Content Ratings"
+
+      ),
+      tabPanel("Revenue",
+         h1("The Revenue Fallacy"),
+         plotlyOutput("revenue_score_plot"),
+         p("INSERT")
+      ),
+      tabPanel("Origin"
+
+      ),
+      tabPanel("Language"
+
+      )
+      # Maybe language and origin can be shown
+      # an overall and overall graph
+   ),
+   tabPanel("Data",
+      dataTableOutput("movie_data")       
    )
-   # navbarMenu(title = "Trends",
-   #    tabPanel("Duration"
-   # 
-   #    ),
-   #    tabPanel("Movie Output"
-   # 
-   #    ),
-   #    tabPanel("Content Ratings"
-   # 
-   #    ),
-   #    tabPanel("Revenue",
-   #       h1("The Revenue Fallacy"),
-   #       plotlyOutput("revenue_score_plot"),
-   #       p("INSERT")
-   #    ),
-   #    tabPanel("Origin"
-   # 
-   #    ),
-   #    tabPanel("Language"
-   # 
-   #    )
-   #    # Maybe language and origin can be shown
-   #    # an overall and overall graph
-   # )
 ))

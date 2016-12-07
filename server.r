@@ -1,6 +1,8 @@
 library(dplyr)
 source("./scripts/director.R")
 source("./scripts/trends.R")
+
+movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 server <- function(input, output) {
    
    
@@ -18,6 +20,11 @@ server <- function(input, output) {
    
    # Trends Tabs
    
-   # Revenue
-   # output$revenue_score_plot <- renderPlotly(return(BuildRevenueScoreComparisonPlot()))
+   ## Revenue
+   output$revenue_score_plot <- renderPlotly(return(BuildRevenueScoreComparisonPlot()))
+   ## Origin
+   
+   
+   # Data
+   output$movie_data <- renderDataTable(movie_data)
 }

@@ -1,4 +1,4 @@
-
+library(plotly)
 
 
 #DIRECTOR TAB
@@ -82,8 +82,12 @@ shinyUI(navbarPage(title = "IMDB Dataset",
       )
    ),
    navbarMenu(title = "Trends",
-      tabPanel("Duration"
-        
+      tabPanel("Duration",
+         h1("Average Movie Duration Over Time"),
+         plotlyOutput("duration_graph"),
+         p("As the movie industry has aged, there seems to be a standard movie length developing in the movie industry. As the industry was growing, it seems there was no clear consensus on just how long a movie should be.
+           However, over the last 20 or so years, the movie industry has consistently averaged right under two hours for a film. This may be do to the industry maturing and developing trends and standards for how the industry
+           should move forward.")
       ),
       tabPanel("Movie Output"
 
@@ -97,7 +101,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          p("INSERT")
       ),
       tabPanel("Origin"
-
+         
       ),
       tabPanel("Language"
 

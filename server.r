@@ -1,4 +1,5 @@
 library(dplyr)
+library(plotly)
 source("./scripts/director.R")
 source("./scripts/trends.R")
 
@@ -19,11 +20,13 @@ server <- function(input, output) {
    output$director_search_results <- renderTable(return(BuildDirectorSearchTable(director())))
    
    # Trends Tabs
+   ## Duration
+   output$duration_graph <- renderPlotly(return(BuildDurationOverTimePlot()))
    
    ## Revenue
    output$revenue_score_plot <- renderPlotly(return(BuildRevenueScoreComparisonPlot()))
-   ## Origin
    
+   ## Origin
    
    # Data
    output$movie_data <- renderDataTable(movie_data)

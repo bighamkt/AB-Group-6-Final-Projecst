@@ -24,15 +24,15 @@ BuildActorTable <- function(type) {
 }
 
 # Movies with selcted actors (one or two)
-BuildFavActorsTable <- function(name1, name2) {
-  movie_data <- read.csv("/Users/apple/Desktop/INFO201/Homework/AB-Group-6-Final-Project/data/movie_metadata_original.csv", stringsAsFactors = FALSE)
+BuildFavActorsTable <- function(name1 = "", name2 = "") {
+  movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
   # If user fills out both search bars with actor names.
   if(name1 != "" & name2 != ""){
-  actor_movies <- movie_data  %>% filter(actor_1_name == name1 | actor_2_name == name1 | actor_3_name == name1) %>%
-    filter(actor_1_name == name2 | actor_2_name == name2 | actor_3_name == name2)
+  actor_movies <- na.omit(movie_data)  %>% filter(tolower(actor_1_name) == tolower(name1) | tolower(actor_2_name) == tolower(name1) | tolower(actor_3_name) == tolower(name1)) %>%
+    filter(tolower(actor_1_name) == tolower(name2) | tolower(actor_2_name) == tolower(name2) | tolower(actor_3_name) == tolower(name2))
   # If user only fills out one search bar with actor name. 
   } else if(name1!= "" & name2 =="") {
-    actor_movies <- movie_data  %>% filter(actor_1_name == name1 | actor_2_name == name1 | actor_3_name == name1)  
+    actor_movies <- na.omit(movie_data)  %>% filter(tolower(actor_1_name) == tolower(name1) | tolower(actor_2_name) == tolower(name1) | tolower(actor_3_name) == tolower(name1))  
   }
   formatted_data <- actor_movies %>% select(actor_1_name, actor_2_name, actor_3_name, movie_title, title_year, imdb_score, content_rating, duration)
   colnames(formatted_data) <- c("Lead Actor", "Supporting Actor", "Supporting Actor", "Title", "Year", "IMDB Score", "Rating", "Duration (m)")
@@ -41,7 +41,7 @@ BuildFavActorsTable <- function(name1, name2) {
 
 # A plot shows actor's IMDB score for movie
 BuildActorPlot <- function(name) {
-  movie_data <- read.csv("/Users/apple/Desktop/INFO201/Homework/AB-Group-6-Final-Project/data/movie_metadata_original.csv", stringsAsFactors = FALSE)
+  movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
   actor_movies <- movie_data  %>% filter(actor_1_name == name | actor_2_name == name | actor_3_name == name) %>%
     select(movie_title, title_year, imdb_score) 
   ndx = order(actor_movies$title_year)

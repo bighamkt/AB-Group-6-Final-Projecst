@@ -1,12 +1,20 @@
 library(plotly)
 
-
+jscodeActor <- "
+$(document).keyup(function(event) {
+   if ($('#name1').is(':focus') && (event.keyCode == 13)) {
+      $('#submit_actor_search').click();
+   } else if ($('#name2').is(':focus') && (event.keyCode == 13)) {
+      $('#submit_actor_search').click();
+   }
+});
+"
 #DIRECTOR TAB
 #devtools::install_github("AnalytixWare/ShinySky")
 movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 director_names <- select(movie_data, director_name)
 director_names <- director_names[!duplicated(director_names[, 1]),]
-jscode <- "
+jscodeDirector <- "
 $(document).keyup(function(event) {
    if ($('#search').is(':focus') && (event.keyCode == 13)) {
       $('#submit_search').click();
@@ -45,60 +53,61 @@ shinyUI(navbarPage(title = "IMDB Dataset",
    
    ),
    tabPanel("Actors",
-            fluidPage(
-              tags$script(HTML(jscode)),
-              # Director Quick Fact Tables
-              h1("Summary"),
-              fluidRow(
-                column(4,
-                       h4("Most Successful Actors By Movie Revenue", style = "text-align:left"),
-                       tableOutput("top_actor_table_revenue")
-                ),
-                column(4,
-                       h4("Most Successful Actors By Movies Created", style = "text-align:left"),
-                       tableOutput("top_actor_table_created") 
-                ),
-                column(4,
-                       h4("Most Successful Actors By IMDB Scores", style = "text-align:left"),
-                       tableOutput("top_actor_table_score") 
-                )
-              ),
-              # END OF TABLES
-              HTML("<hr style='border-bottom: 2px solid gray'>"),
-              # Actor Search
-              fluidRow(
-                column(4,
-                       h2("Actor Movie Search", style = "text-align:left"),
-                       wellPanel(
-                         textInput("name1", placeholder = "Search...", value = "", label = "Search for actors"),
-                         textInput("name2", placeholder = "Search...", value = "", label = "Search for actors"),
-                         actionButton("submit_search", "Search"),
-                         tags$style(HTML('#submit_search{background-color:#3B5998; color:#ffffff}')),
-                         HTML('
-                              <br />
-                              <br />
-                              <h5>Examples</h5>
-                              <div style="color:gray">
-                              <p>George Lucas</p>
-                              <p>Quentin Tarantino</p>
-                              <p>James Cameron</p>
-                              <p>Tim Burton</p>
-                              </div>
-                              ')
-                         )
-                         ),
-                column(8,
-                       tableOutput("actor_search_results")
-                )
-                         )
-              # END OF ACTOR SEARCH
-                )
+      fluidPage(
+      tags$script(HTML(jscodeActor)),
+      # Director Quick Fact Tables
+      h1("Summary"),
+      fluidRow(
+         column(4,
+            h4("Most Successful Actors By Movie Revenue", style = "text-align:left"),
+            tableOutput("top_actor_table_revenue")
+         ),
+         column(4,
+            h4("Most Successful Actors By Movies Created", style = "text-align:left"),
+            tableOutput("top_actor_table_created") 
+         ),
+         column(4,
+            h4("Most Successful Actors By IMDB Scores", style = "text-align:left"),
+            tableOutput("top_actor_table_score") 
+         )
+      ),
+      # END OF TABLES
+      HTML("<hr style='border-bottom: 2px solid gray'>"),
+      # Actor Search
+      fluidRow(
+         column(4,
+            h2("Actor Movie Search", style = "text-align:left"),
+            wellPanel(
+               h5("Search for one or more actors"),
+               textInput("name1", placeholder = "Search...", value = "", label = "Actor 1"),
+               textInput("name2", placeholder = "Search...", value = "", label = "Actor 2 (Optional)"),
+               actionButton("submit_actor_search", "Search"),
+               tags$style(HTML('#submit_actor_search{background-color:#3B5998; color:#ffffff}')),
+               HTML('
+                  <br />
+                  <br />
+                  <h5>Examples</h5>
+                  <div style="color:gray">
+                  <p>Johnny Depp</p>
+                  <p>Matt Damon</p>
+                  <p>Jennifer Lawrence</p>
+                  <p>Natalie Portman</p>
+                  </div>'
+               )
+            )
+         ),
+         column(8,
+            tableOutput("actor_search_results")
+         )
+      )
+        # END OF ACTOR SEARCH
+      )
             
       
    ),
    tabPanel("Directors",
       fluidPage(
-         tags$script(HTML(jscode)),
+         tags$script(HTML(jscodeDirector)),
          # Director Quick Fact Tables
          h1("Summary"),
          fluidRow(

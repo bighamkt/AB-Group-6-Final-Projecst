@@ -4,11 +4,10 @@ source("./scripts/director.R")
 source("./scripts/trends.R")
 source("./scripts/favActor.R")
 
-movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
 server <- function(input, output) {
    # Actor Tab
-  actor <- eventReactive(input$submit_search1, {
-    input$search1
+  actor <- eventReactive(input$submit_actor_search, {
+    c(input$name1, input$name2)
   })
    output$top_actor_table_revenue <- renderTable(return(BuildActorTable("revenue")))
    output$top_actor_table_created <- renderTable(return(BuildActorTable("numOfMovies")))

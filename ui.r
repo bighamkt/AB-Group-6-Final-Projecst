@@ -24,7 +24,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
    ),
    tabPanel("Ratings"
       
-       
+      
    
    ),
    tabPanel("Actors"
@@ -81,33 +81,45 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          # END OF DIRECTOR SEARCH
       )
    ),
-   navbarMenu(title = "Trends",
-      tabPanel("Duration",
-         h1("Average Movie Duration Over Time"),
-         plotlyOutput("duration_graph"),
-         p("As the movie industry has aged, there seems to be a standard movie length developing in the movie industry. As the industry was growing, it seems there was no clear consensus on just how long a movie should be.
-           However, over the last 20 or so years, the movie industry has consistently averaged right under two hours for a film. This may be do to the industry maturing and developing trends and standards for how the industry
-           should move forward.")
+   tabPanel("Trends",
+      HTML("<h1><u>Duration</u><h1>"),
+      h2("Average Movie Duration Over Time"),
+      plotlyOutput("duration_graph"),
+      p("As the movie industry has aged, there seems to be a standard movie length developing in the movie industry. As the industry was growing, it seems there was no clear consensus on just how long a movie should be.
+        However, over the last 20 or so years, the movie industry has consistently averaged right under two hours for a film. This may be due to the industry maturing and developing trends and standards for how the industry
+        should move forward."),
+      br(),
+      hr(),
+      br(),
+      HTML("<h1><u>Content Ratings</u><h1>"),
+      h2("The Change in Content Ratings Into The 21st Century"),
+      br(),
+      fluidRow(
+         column(6,
+                plotlyOutput("movie_rating_1960_1990")
+         ),
+         column(6,
+                plotlyOutput("movie_rating_post_1990")
+         )
       ),
-      tabPanel("Movie Output"
+      p("As the moviegoers of the 20th century matured through the decades leading up to the new millenia, so did the movie industryas well. When comparing the late 20th century movie ratings to the 21st, there is a clear
+        difference in the amount of PG-13 movies compared to PG. This may be due to the fact that the industry finds PG-13 movies to be more profitable as they could be an acceptable middle ground between mature R movies 
+        and kid friendly PG movies. A parent may be a lot more willing to take a child to a PG-13 movies where there is a better chance that they will both enjoy a movie, whereas an R movie is unacceptable and a PG movie 
+        may be to boring for a parent. Another theory may be that directors could feel too limited trying to make a movie suitable for PG audiences, whereas with PG-13, directors have more creative freedom."),
+      br(),
+      hr(),
+      br(),
+      HTML("<h1><u>Origin</u><h1>"),
 
-      ),
-      tabPanel("Content Ratings"
+      #CONTENT
+      
+      br(),
+      hr(),
+      br(),
+      HTML("<h1><u>Language</u><h1>")
 
-      ),
-      tabPanel("Revenue",
-         h1("The Revenue Fallacy"),
-         plotlyOutput("revenue_score_plot"),
-         p("INSERT")
-      ),
-      tabPanel("Origin"
-         
-      ),
-      tabPanel("Language"
-
-      )
-      # Maybe language and origin can be shown
-      # an overall and overall graph
+      #CONTENT
+      
    ),
    tabPanel("Data",
       dataTableOutput("movie_data")       

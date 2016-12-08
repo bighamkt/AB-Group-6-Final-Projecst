@@ -19,15 +19,11 @@ server <- function(input, output) {
    output$top_director_table_score <- renderTable(return(BuildDirectorTable("score")))
    output$director_search_results <- renderTable(return(BuildDirectorSearchTable(director())))
    
-   # Trends Tabs
-   ## Duration
+   # Trends Tab
    output$duration_graph <- renderPlotly(return(BuildDurationOverTimePlot()))
-   
-   ## Revenue
-   output$revenue_score_plot <- renderPlotly(return(BuildRevenueScoreComparisonPlot()))
-   
-   ## Origin
-   
+   output$movie_rating_1960_1990 <- renderPlotly(return(BuildMovieRatingBar1960_1990()))
+   output$movie_rating_post_1990 <- renderPlotly(return(BuildMovieRatingBarPost1990()))
+
    # Data
    output$movie_data <- renderDataTable(movie_data)
 }

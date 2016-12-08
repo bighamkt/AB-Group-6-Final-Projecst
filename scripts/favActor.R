@@ -39,7 +39,7 @@ BuildFavActorsTable <- function(name1, name2) {
   return(formatted_data)
 }
 
-# A plot shows actor's average IMDB score for movie
+# A plot shows actor's IMDB score for movie
 BuildActorPlot <- function(name) {
   movie_data <- read.csv("/Users/apple/Desktop/INFO201/Homework/AB-Group-6-Final-Project/data/movie_metadata_original.csv", stringsAsFactors = FALSE)
   actor_movies <- movie_data  %>% filter(actor_1_name == name | actor_2_name == name | actor_3_name == name) %>%
@@ -53,4 +53,3 @@ BuildActorPlot <- function(name) {
                                 plot = "scatter") 
   return(actor_movies_graph)
 }
-BuildActorPlot("Nicolas Cage")

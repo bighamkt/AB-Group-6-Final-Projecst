@@ -44,9 +44,56 @@ shinyUI(navbarPage(title = "IMDB Dataset",
       
    
    ),
-   tabPanel("Actors"
-   
-      
+   tabPanel("Actors",
+            fluidPage(
+              tags$script(HTML(jscode)),
+              # Director Quick Fact Tables
+              h1("Summary"),
+              fluidRow(
+                column(4,
+                       h4("Most Successful Actors By Movie Revenue", style = "text-align:left"),
+                       tableOutput("top_actor_table_revenue")
+                ),
+                column(4,
+                       h4("Most Successful Actors By Movies Created", style = "text-align:left"),
+                       tableOutput("top_actor_table_created") 
+                ),
+                column(4,
+                       h4("Most Successful Actors By IMDB Scores", style = "text-align:left"),
+                       tableOutput("top_actor_table_score") 
+                )
+              ),
+              # END OF TABLES
+              HTML("<hr style='border-bottom: 2px solid gray'>"),
+              # Actor Search
+              fluidRow(
+                column(4,
+                       h2("Actor Movie Search", style = "text-align:left"),
+                       wellPanel(
+                         textInput("name1", placeholder = "Search...", value = "", label = "Search for actors"),
+                         textInput("name2", placeholder = "Search...", value = "", label = "Search for actors"),
+                         actionButton("submit_search", "Search"),
+                         tags$style(HTML('#submit_search{background-color:#3B5998; color:#ffffff}')),
+                         HTML('
+                              <br />
+                              <br />
+                              <h5>Examples</h5>
+                              <div style="color:gray">
+                              <p>George Lucas</p>
+                              <p>Quentin Tarantino</p>
+                              <p>James Cameron</p>
+                              <p>Tim Burton</p>
+                              </div>
+                              ')
+                         )
+                         ),
+                column(8,
+                       tableOutput("actor_search_results")
+                )
+                         )
+              # END OF ACTOR SEARCH
+                )
+            
       
    ),
    tabPanel("Directors",

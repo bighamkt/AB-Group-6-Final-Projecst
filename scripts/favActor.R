@@ -40,16 +40,17 @@ BuildFavActorsTable <- function(name1 = "", name2 = "") {
 }
 
 # A plot shows actor's IMDB score for movie
-BuildActorPlot <- function(name) {
+BuildActorPlot <- function(name = "") {
   movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
   actor_movies <- movie_data  %>% filter(actor_1_name == name | actor_2_name == name | actor_3_name == name) %>%
     select(movie_title, title_year, imdb_score) 
   ndx = order(actor_movies$title_year)
   actor_movies_sorted = actor_movies[ndx,]
+  colnames(actor_movies_sorted) <- c("Title", "Year", "IMDBScore")
   actor_movies_graph <- plot_ly(actor_movies_sorted,
-                                x = ~title_year, y = ~imdb_score,
+                                x = ~Year, y = ~IMDBScore,
                                 name = "IMDB Score",
-                                text = ~movie_title,
-                                plot = "scatter") 
+                                text = ~Title,
+                                plot = "scatter")
   return(actor_movies_graph)
 }

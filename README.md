@@ -1,5 +1,6 @@
 # AB-Group-6-Final-Project
 
+###[Shiny app link](https://mattpow.shinyapps.io/AB-Group-6-Final-Project/)
 ## Project Proposal
 ##### Project Description
 We will be working with an IMDB dataset from Kaggle. The dataset was created by Kaggle user chuansun76. They created it by scraping IMDB. Allowing them to accumulate 28 variables for 5043 movies, that span across 100 years and 66 countries. Some of the variables include the movie’s title, director, actors, critic reviews, user reviews, and genres. The dataset can be downloaded from Kaggle website (https://www.kaggle.com/deepmatrix/imdb-5000-movie-dataset). Our target audience is movie lovers who is trying to find good movies based on his or her interests. Some specific questions our audience will be able to answer from our project will be:

@@ -55,7 +55,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
    tabPanel("Actors",
       fluidPage(
       tags$script(HTML(jscodeActor)),
-      # Director Quick Fact Tables
+      # Actor Quick Fact Tables
       h1("Summary"),
       fluidRow(
          column(4,

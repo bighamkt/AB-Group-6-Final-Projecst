@@ -47,7 +47,7 @@ shinyUI(navbarPage(title = "IMDB Dataset",
         the face of such a large dataset. Since we have so many variables available to investigate we will need to maintain strong communication to make sure that everyone is on the same page about which questions 
         we are focusing on.")
    ),
-   tabPanel("Ratings"
+   tabPanel("Genre"
       
       
    

@@ -45,13 +45,22 @@ shinyUI(navbarPage(title = "IMDB Dataset",
         libraries we’ve used up until now such as dplyr and plotly. We don’t currently plan on using any new libraries but we will research them as we run into issues that require additional capabilities. We’ll 
         be using some basic statistical analysis but don’t anticipate needing to use anything beyond the basics or machine learning. The biggest challenge we foresee is maintaining a vision for this project in 
         the face of such a large dataset. Since we have so many variables available to investigate we will need to maintain strong communication to make sure that everyone is on the same page about which questions 
-        we are focusing on.")
+        we are focusing on."),
+      br(),
+      HTML("<h1><u>Thoughts On This Project -Matt</u><h1>"),
+      h3("Where I'd like to see this project go"),
+      p("I'd really like to see this project be expanded on over the next couple months as a side project. The first expansion I'd like to do is fix the issues that the dataset had. Although the dataset looks solid
+        on paper, there are some very serious issues with the data mining that occurred. Some of these issues include movie budget and revenue not being adjusted for inflation, movie budgets not being entirely in USD,
+        the top 3 actors listed for each movie aren't always the most logical choices, the facebook likes system to show which actors are most popular is messed up (which was noted by the dataset's author and is due to
+        an issue with response time to Facebook's servers), and there were a notable amount of NA cells in the data that caused a good portion of movies to not be counted in certain measurements. The dataset, even with
+        its flaws however, has a lot of potential that we as a group could not really take advantage of due to time constraints, lack of an overall vision in the planning stage, and the boundaries of our skill in statistical
+        analysis and machine learning. To sum it up, I'd like to make our project make use of most, if not all, of the columns of data provided to make a very interactive, and easy to use service.")
    ),
-   tabPanel("Genre"
-      
-      
-   
-   ),
+   # tabPanel("Genre"
+   #    
+   #    
+   # 
+   # ),
    tabPanel("Actors",
       fluidPage(
       tags$script(HTML(jscodeActor)),
@@ -179,20 +188,20 @@ shinyUI(navbarPage(title = "IMDB Dataset",
       p("As the moviegoers of the 20th century matured through the decades leading up to the new millenia, so did the movie industryas well. When comparing the late 20th century movie ratings to the 21st, there is a clear
         difference in the amount of PG-13 movies compared to PG. This may be due to the fact that the industry finds PG-13 movies to be more profitable as they could be an acceptable middle ground between mature R movies 
         and kid friendly PG movies. A parent may be a lot more willing to take a child to a PG-13 movies where there is a better chance that they will both enjoy a movie, whereas an R movie is unacceptable and a PG movie 
-        may be to boring for a parent. Another theory may be that directors could feel too limited trying to make a movie suitable for PG audiences, whereas with PG-13, directors have more creative freedom."),
-      br(),
-      hr(),
-      br(),
-      HTML("<h1><u>Origin</u><h1>"),
-
-      #CONTENT
-      
-      br(),
-      hr(),
-      br(),
-      HTML("<h1><u>Language</u><h1>")
-
-      #CONTENT
+        may be to boring for a parent. Another theory may be that directors could feel too limited trying to make a movie suitable for PG audiences, whereas with PG-13, directors have more creative freedom.")
+      # br(),
+      # hr(),
+      # br(),
+      # HTML("<h1><u>Origin</u><h1>"),
+      # 
+      # #CONTENT
+      # 
+      # br(),
+      # hr(),
+      # br(),
+      # HTML("<h1><u>Language</u><h1>")
+      # 
+      # #CONTENT
       
    ),
    tabPanel("Data",

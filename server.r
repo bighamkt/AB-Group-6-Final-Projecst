@@ -31,5 +31,6 @@ server <- function(input, output) {
    output$movie_rating_post_1990 <- renderPlotly(return(BuildMovieRatingBarPost1990()))
 
    # Data
+   movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
    output$movie_data <- renderDataTable(movie_data)
 }

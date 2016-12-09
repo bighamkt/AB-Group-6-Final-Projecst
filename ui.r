@@ -99,7 +99,8 @@ shinyUI(navbarPage(title = "IMDB Dataset",
          column(8,
             tableOutput("actor_search_results")
          )
-      )
+      ),
+      plotlyOutput("actor_IMDB")
         # END OF ACTOR SEARCH
       )
             

@@ -40,16 +40,23 @@ BuildFavActorsTable <- function(name1 = "", name2 = "") {
 }
 
 # A plot shows actor's IMDB score for movie
-BuildActorPlot <- function(name) {
+BuildActorPlot <- function(name1 = "", name2 = "") {
   movie_data <- read.csv("./data/movie_metadata_original.csv", stringsAsFactors = FALSE)
-  actor_movies <- movie_data  %>% filter(actor_1_name == name | actor_2_name == name | actor_3_name == name) %>%
-    select(movie_title, title_year, imdb_score) 
+  if(name1 != "" & name2 != ""){
+     actor_movies <- na.omit(movie_data)  %>% filter(tolower(actor_1_name) == tolower(name1) | tolower(actor_2_name) == tolower(name1) | tolower(actor_3_name) == tolower(name1)) %>%
+        filter(tolower(actor_1_name) == tolower(name2) | tolower(actor_2_name) == tolower(name2) | tolower(actor_3_name) == tolower(name2))
+     # If user only fills out one search bar with actor name. 
+  } else if(name1!= "" & name2 =="") {
+     actor_movies <- na.omit(movie_data)  %>% filter(tolower(actor_1_name) == tolower(name1) | tolower(actor_2_name) == tolower(name1) | tolower(actor_3_name) == tolower(name1))  
+  }
+  actor_movies <- actor_movies %>% select(movie_title, title_year, imdb_score) 
   ndx = order(actor_movies$title_year)
   actor_movies_sorted = actor_movies[ndx,]
   actor_movies_graph <- plot_ly(actor_movies_sorted,
                                 x = ~title_year, y = ~imdb_score,
                                 name = "IMDB Score",
                                 text = ~movie_title,
-                                plot = "scatter") 
+                                plot = "scatter") %>%
+     layout(title = "IMDB Score for Movie List", xaxis = list(title = "Year"), yaxis = list(title = "IMDB Score"))
   return(actor_movies_graph)
 }
